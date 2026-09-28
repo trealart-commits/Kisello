@@ -18,19 +18,18 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y lftp
 
-      - name: Upload site by FTP
+      - name: Upload site by SFTP
         env:
           TIMEWEB_HOST: ${{ secrets.TIMEWEB_HOST }}
           TIMEWEB_USER: ${{ secrets.TIMEWEB_USER }}
           TIMEWEB_PASSWORD: ${{ secrets.TIMEWEB_PASSWORD }}
           TIMEWEB_TARGET: ${{ secrets.TIMEWEB_TARGET }}
         run: |
-          lftp -u "$TIMEWEB_USER","$TIMEWEB_PASSWORD" "ftp://$TIMEWEB_HOST:21" -e "
+          lftp -u "$TIMEWEB_USER","$TIMEWEB_PASSWORD" "sftp://$TIMEWEB_HOST:22" -e "
             set cmd:fail-exit yes
             set net:timeout 20
             set net:max-retries 1
-            set ftp:passive-mode yes
-            set ftp:ssl-allow yes
+            set sftp:auto-confirm yes
             mirror -R \
               --exclude-glob .git/** \
               --exclude-glob .github/** \

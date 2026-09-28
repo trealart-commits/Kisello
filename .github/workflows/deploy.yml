@@ -13,16 +13,24 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Upload site by FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.TIMEWEB_HOST }}
-          username: ${{ secrets.TIMEWEB_USER }}
-          password: ${{ secrets.TIMEWEB_PASSWORD }}
-          local-dir: ./
-          server-dir: ${{ secrets.TIMEWEB_TARGET }}
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/.github/**
-            README.md
+      - name: Install deploy client
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y lftp
+
+      - name: Upload site by SFTP
+        env:
+          TIMEWEB_HOST: ${{ secrets.TIMEWEB_HOST }}
+          TIMEWEB_USER: ${{ secrets.TIMEWEB_USER }}
+          TIMEWEB_PASSWORD: ${{ secrets.TIMEWEB_PASSWORD }}
+          TIMEWEB_TARGET: ${{ secrets.TIMEWEB_TARGET }}
+        run: |
+          lftp -u "$TIMEWEB_USER","$TIMEWEB_PASSWORD" "sftp://$TIMEWEB_HOST:22" -e "
+            set sftp:auto-confirm yes
+            mirror -R \
+              --exclude-glob .git/** \
+              --exclude-glob .github/** \
+              --exclude README.md \
+              ./ \"$TIMEWEB_TARGET\"
+            bye
+          "

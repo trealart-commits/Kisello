@@ -26,6 +26,9 @@ jobs:
           TIMEWEB_TARGET: ${{ secrets.TIMEWEB_TARGET }}
         run: |
           lftp -u "$TIMEWEB_USER","$TIMEWEB_PASSWORD" "sftp://$TIMEWEB_HOST:22" -e "
+            set cmd:fail-exit yes
+            set net:timeout 20
+            set net:max-retries 1
             set sftp:auto-confirm yes
             mirror -R \
               --exclude-glob .git/** \

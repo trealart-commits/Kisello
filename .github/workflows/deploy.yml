@@ -16,7 +16,7 @@ jobs:
       - name: Install deploy client
         run: |
           sudo apt-get update
-          sudo apt-get install -y lftp
+          sudo apt-get install -y rsync sshpass
 
       - name: Upload site by SFTP
         env:
@@ -25,15 +25,10 @@ jobs:
           TIMEWEB_PASSWORD: ${{ secrets.TIMEWEB_PASSWORD }}
           TIMEWEB_TARGET: ${{ secrets.TIMEWEB_TARGET }}
         run: |
-          lftp -u "$TIMEWEB_USER","$TIMEWEB_PASSWORD" "sftp://$TIMEWEB_HOST:22" -e "
-            set cmd:fail-exit yes
-            set net:timeout 20
-            set net:max-retries 1
-            set sftp:auto-confirm yes
-            mirror -R \
-              --exclude-glob .git/** \
-              --exclude-glob .github/** \
-              --exclude README.md \
-              ./ \"$TIMEWEB_TARGET\"
-            bye
-          "
+          TARGET="${TIMEWEB_TARGET#/}"
+          SSHPASS="$TIMEWEB_PASSWORD" sshpass -e rsync -avz \
+            --exclude='.git/' \
+            --exclude='.github/' \
+            --exclude='README.md' \
+            -e "ssh -p 22 -o StrictHostKeyChecking=accept-new" \
+            ./ "$TIMEWEB_USER@$TIMEWEB_HOST:$TARGET"

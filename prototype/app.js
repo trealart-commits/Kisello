@@ -40,3 +40,13 @@ if(data.get('contact')==='Telegram'&&data.get('telegram'))rows.push(['Telegram',
 if(!document.getElementById('tree-fields').hidden)rows.push(['Деревья',data.get('trees')||'Нужна оценка'],['Кустарники',data.get('shrubs')||'Нужна оценка'],['Доступ',data.get('access')],['Остатки',data.get('waste')]);rows.push(['Описание',data.get('description')||'Не указано'],['Медиа по ссылке',data.get('mediaLink')||'Не указано'],['Вложения',files.length?files.map(f=>f.name).join('\n'):'Нет']);const dl=document.getElementById('review-content');dl.replaceChildren();rows.forEach(([key,value])=>{const dt=document.createElement('dt');dt.textContent=key;const dd=document.createElement('dd');dd.textContent=value;dl.append(dt,dd);});reviewText='KISELLO · ТЕСТОВАЯ ЗАЯВКА (НЕ ОТПРАВЛЕНА)\n\n'+rows.map(([k,v])=>k+': '+v).join('\n')+'\n\nФайлы перечислены по именам; в текстовый файл не включены.';dialog.showModal();});
 document.getElementById('close-review').addEventListener('click',()=>dialog.close());dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}});
 document.getElementById('download-review').addEventListener('click',()=>{const url=URL.createObjectURL(new Blob([reviewText],{type:'text/plain;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='kisello-request.txt';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
+
+document.querySelectorAll('[data-compare]').forEach(compare=>{
+  const range=compare.querySelector('input[type=range]');
+  const update=()=>compare.style.setProperty('--split',`${range.value}%`);
+  range.addEventListener('input',update);
+  compare.querySelectorAll('[data-position]').forEach(button=>{
+    button.addEventListener('click',()=>{range.value=button.dataset.position;update();});
+  });
+  update();
+});

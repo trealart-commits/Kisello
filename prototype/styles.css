@@ -41,6 +41,10 @@
 .about-team{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .about-team .about-team-photo{aspect-ratio:3/4}
 .about-team-photo-dima{object-position:42% 20%}
+.about-copy .about-mission{font-family:var(--serif);font-size:24px;line-height:1.5;margin-bottom:24px}
+.about-details{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding-bottom:0}
+.about-details[open]{padding-bottom:24px}
+.about-details summary{color:var(--plum)}
 .journal .journal-process-photo{object-position:center 65%}
 
 .header-phone{margin-left:auto}

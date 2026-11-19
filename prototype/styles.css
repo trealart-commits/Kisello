@@ -42,3 +42,16 @@
 .about-team .about-team-photo{aspect-ratio:3/4}
 .about-team-photo-dima{object-position:42% 20%}
 .journal .journal-process-photo{object-position:center 65%}
+
+.header-phone{margin-left:auto}
+.section-navigation{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 3px 12px #263b320a}
+.section-navigation-links{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:66px}
+.section-navigation a{display:flex;justify-content:center;align-items:center;min-height:48px;padding:8px 12px;font-size:14px;text-align:center;line-height:1.4;border-bottom:2px solid transparent}
+.section-navigation a:hover,.section-navigation a:focus-visible{color:var(--plum);border-bottom-color:var(--plum)}
+@media(max-width:600px){
+  html{scroll-padding-top:125px}
+  .hero{height:470px}
+  .section-navigation-links{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:0;padding:6px 16px}
+  .section-navigation a{grid-column:span 2;padding:8px 4px;font-size:12px;min-height:44px}
+  .section-navigation a:nth-child(-n+2){grid-column:span 3}
+}

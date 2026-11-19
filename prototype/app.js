@@ -17,10 +17,6 @@ function setSeason(key, focus = false) {
 }
 tabs.forEach((tab,i)=>{tab.addEventListener('click',()=>setSeason(tab.dataset.season));tab.addEventListener('keydown',e=>{let next;if(e.key==='ArrowRight')next=(i+1)%4;if(e.key==='ArrowLeft')next=(i+3)%4;if(e.key==='Home')next=0;if(e.key==='End')next=3;if(next!==undefined){e.preventDefault();setSeason(tabs[next].dataset.season,true);}});});
 setSeason('autumn');
-const menu = document.querySelector('.menu-toggle');const navigation=document.getElementById('navigation');
-function closeMenu(){navigation.classList.remove('open');menu.setAttribute('aria-expanded','false');}
-menu.addEventListener('click',()=>{const open=navigation.classList.toggle('open');menu.setAttribute('aria-expanded',String(open));});
-navigation.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMenu));document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu();});
 const services=['Консультация','День садовника','Обрезка деревьев и кустарников','Обрезка хвойных и ниваки','Комплексный уход','Обновление сада','Посадки и подбор растений','Обработки и лечение растений','Спил и расчистка','Автополив и благоустройство','Другая задача'];
 const choices=document.getElementById('service-choices');const form=document.getElementById('request-form');
 services.forEach(service=>{const label=document.createElement('label');const input=document.createElement('input');input.type='checkbox';input.name='service';input.value=service;label.append(input,document.createTextNode(service));choices.append(label);});

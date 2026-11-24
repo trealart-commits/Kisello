@@ -63,4 +63,9 @@
   .section-navigation a:nth-child(-n+2){grid-column:span 3}
 }
 @supports ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.section-navigation{background:rgba(248,251,245,.64)}}
+@media(max-width:600px){
+  @supports ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+    .section-navigation{background:rgba(248,251,245,.38);backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%)}
+  }
+}
 @media(max-width:600px) and (max-height:680px){.hero h1{font-size:28px}.hero-copy{padding-top:18px;padding-bottom:140px}.header{padding-top:14px;padding-bottom:14px}}

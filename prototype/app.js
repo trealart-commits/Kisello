@@ -1,3 +1,12 @@
+const updateMobileTopHeight=()=>{
+  const height=document.querySelector('.header').getBoundingClientRect().height+document.querySelector('.preview-label').getBoundingClientRect().height;
+  document.documentElement.style.setProperty('--mobile-top-height',`${height}px`);
+};
+const topObserver=new ResizeObserver(updateMobileTopHeight);
+topObserver.observe(document.querySelector('.header'));
+topObserver.observe(document.querySelector('.preview-label'));
+updateMobileTopHeight();
+
 const seasons = {
   spring: {kicker:'Весна / Пробуждение',title:'Помочь саду войти в сезон',copy:'Оцениваем, как растения перенесли зиму, и составляем план ухода на период роста.',items:['Осмотр деревьев и кустарников','Обрезка плодовых и декоративных до цветения','Формирующая обрезка хвойных','Подбор подкормок и защитных мероприятий','Посадки','Монтаж автополива']},
   summer: {kicker:'Лето / Рост и форма',title:'Сохранить красоту в разгар лета',copy:'Следим за состоянием растений, поддерживаем форму и учитываем нагрузку жары и засухи.',items:['Санитарная обрезка и коррекция приростов','Подпорки для плодовых','Поддерживающая стрижка изгородей','Уход за цветниками и розарием','Контроль состояния растений','Оценка полива, мульчирование и уход за почвой','Борьба с вредителями']},

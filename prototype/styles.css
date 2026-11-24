@@ -57,7 +57,7 @@
   .hero{height:calc(100svh - var(--mobile-top-height,140px));min-height:0;align-items:center}
   .hero-copy{padding:28px 24px 150px}
   .hero-caption{bottom:118px;left:24px;max-width:calc(100% - 48px)}
-  .section-navigation{height:100px;margin-top:-100px}
+  .section-navigation{width:100%;max-width:none;height:100px;margin:-100px 0 0;border:0;border-radius:0;box-shadow:none}
   .section-navigation-links{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-template-rows:44px 44px;height:100px;gap:0;padding:6px 16px}
   .section-navigation a{grid-column:span 2;padding:8px 4px;font-size:11px;height:44px;min-width:0}
   .section-navigation a:nth-child(-n+2){grid-column:span 3}

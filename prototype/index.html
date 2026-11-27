@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Roboto+Slab:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20261127-photo-dimming">
-  <script src="app.js?v=20261127-floating-photo" defer></script>
+  <link rel="stylesheet" href="styles.css?v=20261127-hero-carousel">
+  <script src="app.js?v=20261127-hero-carousel" defer></script>
 </head>
 <body>
   <div class="preview-label">Прототип для обсуждения · заявки не отправляются</div>
@@ -19,12 +19,23 @@
   </header>
   <main>
     <section class="hero" id="home">
-      <img class="hero-image" src="assets/landscape.jpg" alt="Садовая дорожка среди цветущих кустарников и живых изгородей" fetchpriority="high">
+      <div class="hero-media" data-hero-media="slideshow">
+        <img class="hero-image is-active" src="assets/hero-japanese-garden.jpg" alt="Сосна, камни и цветущие растения в японском саду" fetchpriority="high" style="--desktop-position:50% 50%;--mobile-position:52% 50%">
+        <img class="hero-image" src="assets/hero-spruce.jpg" alt="Сформированная ель в каменистой композиции" decoding="async" style="--desktop-position:50% 50%;--mobile-position:50% 50%">
+        <img class="hero-image" src="assets/hero-dana.jpg" alt="Сад камней Дана Центра на фоне крымских гор" decoding="async" style="--desktop-position:50% 55%;--mobile-position:64% 50%">
+      </div>
       <div class="hero-copy">
         <h1>Возьмём на себя заботы о красоте и здоровье вашего сада.</h1>
         <a class="button button-light" href="#request">Обсудим задачи?</a>
       </div>
-      <span class="hero-caption">Иллюстративная фотография · не объект Kisello</span>
+      <div class="hero-slideshow-controls" role="group" aria-label="Фотографии на первом экране" hidden>
+        <div class="hero-slide-selectors">
+          <button type="button" data-hero-slide="0" aria-label="Фотография 1" aria-pressed="true"></button>
+          <button type="button" data-hero-slide="1" aria-label="Фотография 2" aria-pressed="false"></button>
+          <button type="button" data-hero-slide="2" aria-label="Фотография 3" aria-pressed="false"></button>
+        </div>
+        <button type="button" class="hero-slideshow-toggle" aria-label="Приостановить смену фотографий" title="Приостановить смену фотографий"><span aria-hidden="true">Ⅱ</span></button>
+      </div>
     </section>
     <nav id="navigation" class="section-navigation" aria-label="Основная навигация">
       <div class="wrap section-navigation-links">

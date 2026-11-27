@@ -7,6 +7,56 @@ topObserver.observe(document.querySelector('.header'));
 topObserver.observe(document.querySelector('.preview-label'));
 updateMobileTopHeight();
 
+const hero=document.getElementById('home');
+const heroSlides=[...hero.querySelectorAll('.hero-media .hero-image')];
+const heroControls=hero.querySelector('.hero-slideshow-controls');
+const heroToggle=hero.querySelector('.hero-slideshow-toggle');
+const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
+let heroIndex=0;
+let heroPaused=reducedMotion.matches;
+let heroVisible=true;
+let heroInteracting=false;
+let heroTimer;
+let heroTransition=0;
+function updateHeroPlayback(){
+  clearInterval(heroTimer);
+  heroToggle.setAttribute('aria-label',heroPaused?'Продолжить смену фотографий':'Приостановить смену фотографий');
+  heroToggle.title=heroToggle.getAttribute('aria-label');
+  heroToggle.firstElementChild.textContent=heroPaused?'▶':'Ⅱ';
+  if(!heroPaused&&heroVisible&&!heroInteracting&&!document.hidden){
+    heroTimer=setInterval(()=>setHeroSlide((heroIndex+1)%heroSlides.length),6000);
+  }
+}
+async function setHeroSlide(index){
+  const request=++heroTransition;
+  const next=heroSlides[index];
+  try{await next.decode();}catch{return;}
+  if(request!==heroTransition)return;
+  heroIndex=index;
+  heroSlides.forEach((slide,i)=>slide.classList.toggle('is-active',i===index));
+  hero.querySelectorAll('[data-hero-slide]').forEach((button,i)=>button.setAttribute('aria-pressed',String(i===index)));
+}
+heroControls.hidden=false;
+hero.querySelectorAll('[data-hero-slide]').forEach(button=>button.addEventListener('click',()=>{
+  heroPaused=true;
+  setHeroSlide(Number(button.dataset.heroSlide));
+  updateHeroPlayback();
+}));
+heroToggle.addEventListener('click',()=>{heroPaused=!heroPaused;updateHeroPlayback();});
+heroControls.addEventListener('mouseenter',()=>{heroInteracting=true;updateHeroPlayback();});
+heroControls.addEventListener('mouseleave',()=>{heroInteracting=false;updateHeroPlayback();});
+heroControls.addEventListener('focusin',()=>{heroInteracting=true;updateHeroPlayback();});
+heroControls.addEventListener('focusout',event=>{
+  if(!heroControls.contains(event.relatedTarget)){heroInteracting=false;updateHeroPlayback();}
+});
+document.addEventListener('visibilitychange',updateHeroPlayback);
+new IntersectionObserver(entries=>{
+  heroVisible=entries[0].isIntersecting;
+  updateHeroPlayback();
+}).observe(hero);
+reducedMotion.addEventListener('change',event=>{if(event.matches)heroPaused=true;updateHeroPlayback();});
+updateHeroPlayback();
+
 const seasons = {
   spring: {kicker:'Весна / Пробуждение',title:'Помочь саду войти в сезон',copy:'Оцениваем, как растения перенесли зиму, и составляем план ухода на период роста.',items:['Осмотр деревьев и кустарников','Обрезка плодовых и декоративных до цветения','Формирующая обрезка хвойных','Подбор подкормок и защитных мероприятий','Посадки','Монтаж автополива']},
   summer: {kicker:'Лето / Рост и форма',title:'Сохранить красоту в разгар лета',copy:'Следим за состоянием растений, поддерживаем форму и учитываем нагрузку жары и засухи.',items:['Санитарная обрезка и коррекция приростов','Подпорки для плодовых','Поддерживающая стрижка изгородей','Уход за цветниками и розарием','Контроль состояния растений','Оценка полива, мульчирование и уход за почвой','Борьба с вредителями']},

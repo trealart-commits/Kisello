@@ -102,6 +102,10 @@ main p:last-child:not(.eyebrow):not(.fineprint):not(.demo-note){margin-bottom:0}
 .about-copy .about-mission{line-height:1.4}
 .order-steps-heading{margin:48px 0 0}
 .order-steps-heading+.principles{margin-top:24px}
+.events-section{padding-bottom:48px}
+.events-details{border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.events-details summary{font-family:var(--serif);font-size:24px}
+.events-details[open]{padding-bottom:24px}
 .project-photo-pair{max-width:680px;align-items:start;gap:12px}
 .project-photo-pair img{height:auto;aspect-ratio:auto;object-fit:initial;background:transparent}
 .project:first-child .project-photo-pair img{aspect-ratio:3/4;object-fit:cover}

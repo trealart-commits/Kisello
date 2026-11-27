@@ -68,8 +68,6 @@ function setSeason(key, focus = false) {
   const data = seasons[key];
   tabs.forEach(tab => {const active = tab.dataset.season === key; tab.setAttribute('aria-selected', String(active)); tab.tabIndex = active ? 0 : -1; if(active && focus) tab.focus();});
   document.getElementById('season-panel').setAttribute('aria-labelledby', 'tab-' + key);
-  document.getElementById('season-kicker').textContent = data.kicker;
-  document.getElementById('season-title').textContent = data.title;
   document.getElementById('season-copy').textContent = data.copy;
   const list = document.getElementById('season-list'); list.replaceChildren();
   data.items.forEach((item,i)=>{const row=document.createElement('div');row.className='season-item';const number=document.createElement('span');number.textContent='0'+(i+1);const text=document.createElement('span');text.textContent=item;row.append(number,text);list.append(row);});

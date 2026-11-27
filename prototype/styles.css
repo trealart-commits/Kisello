@@ -100,6 +100,8 @@ main p:last-child:not(.eyebrow):not(.fineprint):not(.demo-note){margin-bottom:0}
 .project details h4{font:500 17px/1.4 var(--sans);margin:24px 0 12px}
 .project details .project-photo-pair:last-child{margin-bottom:20px}
 .about-copy .about-mission{line-height:1.4}
+.order-steps-heading{margin:48px 0 0}
+.order-steps-heading+.principles{margin-top:24px}
 .project-photo-pair{max-width:680px;align-items:start;gap:12px}
 .project-photo-pair img{height:auto;aspect-ratio:auto;object-fit:initial;background:transparent}
 .project:first-child .project-photo-pair img{aspect-ratio:3/4;object-fit:cover}

@@ -99,7 +99,7 @@ main p:last-child:not(.eyebrow):not(.fineprint):not(.demo-note){margin-bottom:0}
 .project-details .photo-preview img{height:auto;aspect-ratio:auto}
 .project>p+.photo-preview{margin-top:20px}
 .photo-dialog{width:var(--photo-width,auto);height:fit-content;max-width:88vw;max-height:80svh;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;overflow:hidden}
-.photo-dialog::backdrop{background:transparent;backdrop-filter:none}
+.photo-dialog::backdrop{background:rgba(40,40,40,.38);backdrop-filter:none}
 .photo-toolbar,.photo-navigation{position:absolute;left:0;right:0;display:flex;align-items:center;justify-content:space-between;gap:12px;pointer-events:none}
 .photo-toolbar{top:0;z-index:2;justify-content:flex-end;padding:4px 6px}
 .photo-toolbar span{display:none}

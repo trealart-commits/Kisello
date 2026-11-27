@@ -86,15 +86,16 @@ main p:last-child:not(.eyebrow):not(.fineprint):not(.demo-note){margin-bottom:0}
 .project details h4{font:500 17px/1.4 var(--sans);margin:24px 0 12px}
 .project details .project-photo-pair:last-child{margin-bottom:20px}
 .about-copy .about-mission{line-height:1.4}
-.project-photo-pair{max-width:720px}
-.project-photo-pair img{height:300px;aspect-ratio:auto;object-fit:contain}
-.project-photo-pair-landscape{max-width:900px}
-.project-photo-pair-landscape img{height:260px}
-.project>img{max-height:320px;object-fit:contain;object-position:left center}
+.project-photo-pair{max-width:680px;align-items:start;gap:12px}
+.project-photo-pair img{height:auto;aspect-ratio:auto;object-fit:initial;background:transparent}
+.project-photo-pair-landscape{max-width:1000px}
+.project>img{width:100%;max-width:680px;max-height:none;height:auto;aspect-ratio:auto}
 .photo-preview{display:block;width:100%;padding:0;background:transparent;cursor:zoom-in}
 .photo-preview:focus-visible{outline:3px solid var(--plum);outline-offset:3px}
-.project>.photo-preview{max-width:720px}
-.project>.photo-preview img,.project details>.photo-preview img{width:100%;height:300px;object-fit:contain;object-position:left center}
+.project>.photo-preview,.project details>.photo-preview{max-width:680px}
+.project>.photo-preview img,.project details>.photo-preview img{width:100%;height:auto;max-height:none;aspect-ratio:auto;object-fit:initial}
+.project-photo-pair .photo-preview{line-height:0}
+.project-details .photo-preview img{height:auto;aspect-ratio:auto}
 .project>p+.photo-preview{margin-top:20px}
 .photo-dialog{width:min(1080px,calc(100% - 24px));max-height:94svh;padding:12px;background:#fff}
 .photo-dialog::backdrop{background:#102019e6;backdrop-filter:blur(6px)}
@@ -107,10 +108,7 @@ main p:last-child:not(.eyebrow):not(.fineprint):not(.demo-note){margin-bottom:0}
 .photo-navigation{min-height:56px}
 .photo-navigation p{font-size:13px;line-height:1.4;text-align:center;margin:8px 0}
 @media(max-width:600px){
-  .project-photo-pair img{height:220px}
-  .project-photo-pair-landscape img{height:150px}
-  .project>img{max-height:240px}
-  .project>.photo-preview img,.project details>.photo-preview img{height:220px}
+  .project-photo-pair{gap:8px}
   .photo-dialog{padding:8px}
   .photo-navigation p{font-size:12px}
 }

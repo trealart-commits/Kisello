@@ -55,3 +55,53 @@ document.querySelectorAll('[data-compare]').forEach(compare=>{
   });
   update();
 });
+
+const photoDialog=document.getElementById('photo-dialog');
+const photoLarge=document.getElementById('photo-large');
+let activePhotos=[];
+let activePhotoIndex=0;
+let photoScrollOverflow='';
+function showPhoto(index){
+  activePhotoIndex=(index+activePhotos.length)%activePhotos.length;
+  const source=activePhotos[activePhotoIndex];
+  photoLarge.src=source.currentSrc||source.src;
+  photoLarge.alt=source.alt;
+  document.getElementById('photo-caption').textContent=source.alt;
+  document.getElementById('photo-counter').textContent=`${activePhotoIndex+1} / ${activePhotos.length}`;
+  document.getElementById('photo-prev').hidden=activePhotos.length<2;
+  document.getElementById('photo-next').hidden=activePhotos.length<2;
+}
+document.querySelectorAll('#works .project-photo-pair img,#works .project-details img,#works .project>img,#works .project details>img').forEach(img=>{
+  const button=document.createElement('button');
+  button.type='button';
+  button.className='photo-preview';
+  button.setAttribute('aria-label','Открыть фото: '+img.alt);
+  button.setAttribute('aria-haspopup','dialog');
+  button.title='Открыть фотографию';
+  img.before(button);
+  button.append(img);
+  button.addEventListener('click',()=>{
+    const group=img.closest('.project')||img.closest('.project-details');
+    activePhotos=[...group.querySelectorAll('.photo-preview img')];
+    showPhoto(activePhotos.indexOf(img));
+    photoScrollOverflow=document.documentElement.style.overflow;
+    document.documentElement.style.overflow='hidden';
+    photoDialog.showModal();
+  });
+});
+document.getElementById('photo-close').addEventListener('click',()=>photoDialog.close());
+document.getElementById('photo-prev').addEventListener('click',()=>showPhoto(activePhotoIndex-1));
+document.getElementById('photo-next').addEventListener('click',()=>showPhoto(activePhotoIndex+1));
+photoDialog.addEventListener('keydown',event=>{
+  if(event.key==='ArrowLeft'){event.preventDefault();showPhoto(activePhotoIndex-1);}
+  if(event.key==='ArrowRight'){event.preventDefault();showPhoto(activePhotoIndex+1);}
+});
+photoDialog.addEventListener('click',event=>{
+  if(event.target!==photoDialog)return;
+  const rect=photoDialog.getBoundingClientRect();
+  if(event.clientX<rect.left||event.clientX>rect.right||event.clientY<rect.top||event.clientY>rect.bottom)photoDialog.close();
+});
+photoDialog.addEventListener('close',()=>{
+  document.documentElement.style.overflow=photoScrollOverflow;
+  photoLarge.removeAttribute('src');
+});

@@ -17,6 +17,11 @@
 .about-team-photo{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:66% center}
 .project-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px 24px}
 .project-featured{grid-column:1/-1}
+.project-photo-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.project-photo-pair figure{margin:0;min-width:0}
+.project-photo-pair img{width:100%;height:auto;aspect-ratio:3/4;object-fit:contain;background:var(--soft)}
+.project-photo-pair figcaption{padding-top:8px;font-size:13px}
+@media(max-width:540px){.project-photo-pair{gap:10px}}
 .project>img,.project>.compare-cover{width:100%;aspect-ratio:4/3;object-fit:cover}
 .project-featured>img{aspect-ratio:2/1;object-position:center 60%}
 .project h3{margin:16px 0 6px}

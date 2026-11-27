@@ -9,7 +9,7 @@
 .about-portrait{margin:0}
 .about-photo-placeholder{aspect-ratio:4/5;display:grid;place-items:center;background:#e8ede4;border:1px solid var(--line);color:var(--muted);font-size:13px}
 .about-portrait figcaption{padding:12px 0;border-bottom:1px solid var(--line);color:var(--muted);font-size:13px}
-.about-copy p{color:var(--ink);line-height:1.75}
+.about-copy p{color:var(--ink)}
 .about-copy p .text-link{display:inline;padding:0;font-size:inherit}
 @media(max-width:800px){.about-grid{grid-template-columns:1fr}.about-portrait{max-width:480px}}
 @media(max-width:540px){.about-photo-placeholder{aspect-ratio:4/3}}
@@ -75,3 +75,14 @@
   }
 }
 @media(max-width:600px) and (max-height:680px){.hero h1{font-size:28px}.hero-copy{padding-top:18px;padding-bottom:140px}.header{padding-top:14px;padding-bottom:14px}}
+
+/* Shared reading rhythm; captions and display text keep their own hierarchy. */
+main p:not(.eyebrow):not(.fineprint):not(.about-mission):not(.demo-note):not(.field-error){font-size:15px;line-height:1.55;margin-bottom:12px}
+main p:last-child:not(.eyebrow):not(.fineprint):not(.demo-note){margin-bottom:0}
+.project>h3{margin:0 0 10px}
+.project>p+p{margin-top:-4px}
+.project>p+.project-photo-pair,.project>p+img,.project>p+.compare-cover{margin-top:20px}
+.project>details{margin-top:16px}
+.project details h4{font:500 17px/1.4 var(--sans);margin:24px 0 12px}
+.project details .project-photo-pair:last-child{margin-bottom:20px}
+.about-copy .about-mission{line-height:1.4}

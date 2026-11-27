@@ -61,9 +61,19 @@ const photoLarge=document.getElementById('photo-large');
 let activePhotos=[];
 let activePhotoIndex=0;
 let photoScrollOverflow='';
+function sizePhoto(width,height){
+  if(!width||!height)return;
+  const scale=Math.min(1,window.innerWidth*.88/width,window.innerHeight*.8/height);
+  photoDialog.style.setProperty('--photo-width',Math.floor(width*scale)+'px');
+}
+photoLarge.addEventListener('load',()=>sizePhoto(photoLarge.naturalWidth,photoLarge.naturalHeight));
+window.addEventListener('resize',()=>{
+  if(photoDialog.open)sizePhoto(photoLarge.naturalWidth,photoLarge.naturalHeight);
+});
 function showPhoto(index){
   activePhotoIndex=(index+activePhotos.length)%activePhotos.length;
   const source=activePhotos[activePhotoIndex];
+  sizePhoto(source.naturalWidth||Number(source.getAttribute('width')),source.naturalHeight||Number(source.getAttribute('height')));
   photoLarge.src=source.currentSrc||source.src;
   photoLarge.alt=source.alt;
   document.getElementById('photo-caption').textContent=source.alt;
